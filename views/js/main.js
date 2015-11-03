@@ -423,9 +423,9 @@ var resizePizzas = function(size) {
 
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
-    var oldwidth = elem.offsetWidth;
-    var windowwidth = document.getElementById("randomPizzas").offsetWidth;
-    var oldsize = oldwidth / windowwidth;
+    var oldWidth = elem.offsetWidth;
+    var windowWidth = document.getElementById("randomPizzas").offsetWidth;
+    var oldSize = oldWidth / windowWidth;
 
     // TODO: change to 3 sizes? no more xl?
     // Changes the slider value to a percent width
@@ -443,7 +443,7 @@ var resizePizzas = function(size) {
     }
 
     var newsize = sizeSwitcher(size);
-    var dx = (newsize - oldsize) * windowwidth;
+    var dx = (newSize - oldSize) * windowWidth;
 
     return dx;
   }
@@ -451,9 +451,9 @@ var resizePizzas = function(size) {
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
       var pizzaContainer = document.getElementsByClassName("randomPizzaContainer");
-      var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[0], size);
-      var newwidth = (document.getElementsByClassName("randomPizzaContainer")[0].offsetWidth + dx) + 'px';
-    for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
+      var dx = determineDx(pizzaContainer[0], size);
+      var newwidth = (pizzaContainer[0].offsetWidth + dx) + 'px';
+    for (var i = 0; i < pizzaContainer.length; i++) {
       pizzaContainer[i].style.width = newwidth;
     }
   }
@@ -497,10 +497,11 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
-var items = null;
-var coeff = 1/1250;
+
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+  var items = null;
+  var coeff = 1/1250;
   frame++;
   window.performance.mark("mark_start_frame");
 
@@ -510,10 +511,6 @@ function updatePositions() {
   }
 
   var ratio = (document.body.scrollTop * coeff);
-/*  for (var i = 0; i < 13; i++) {
-    var phase = Math.sin(ratio + (i%5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-  }*/
 
 var phase = []; 
 
@@ -549,7 +546,7 @@ document.addEventListener('DOMContentLoaded', function() {
   for (var i = 0; i < pizzaTotal; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = "images/pizza-min.png";
+    elem.src = "images/pizza-resized-min.png";
     elem.style.transform = 'translate3d(0, 0, 0) translate(0px)'; 
     elem.height = "100";
     elem.width  = "73.333";
@@ -559,17 +556,6 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.translateX = elem.basicLeft + 'px';
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     movingPizzas.appendChild(elem);
-  /*var cols = 8;
-  var s = 256;
-  for (var i = 0; i < 32; i++) {
-    var elem = document.createElement('img');
-    elem.className = 'mover';
-    elem.src = "images/pizza-min.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.333px";
-    elem.basicLeft = (i % cols) * s;
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.getElementById("movingPizzas1").appendChild(elem);*/
   }
   updatePositions();
 });
