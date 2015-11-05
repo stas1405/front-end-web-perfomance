@@ -1,3 +1,14 @@
+1. In this project I have changed all querySelectors to appropriate getElementBy...() function.
+2. Optimized changePizzaSize() function by removing from the loop variables
+3. pizzasDiv, dx, newWidth variables were moved outside of the loops.
+4. In order to calculate the amount of floating pizzas on the screen,  i have used screen.availWidth and screen.availHeight properties.
+5. In css file I have added to a .mover class backface property in order to increase the perfomance.
+6. Part of .css file was inlined into html in order to increase loading speed.
+7. To move the pizzas the original code changed the left style property of the pizza element. This is inefficient because the browser needs to composite, paint, and layout the element every time it moves. I used the translateX style to move the element instead because it only requires compositing (which is cheap).
+8. Added the 'print' media query to the print.css file because it is only needed when the user wants to print the page, not at page load.
+
+
+
 ## Website Performance Optimization portfolio project
 
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
